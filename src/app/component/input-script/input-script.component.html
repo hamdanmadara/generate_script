@@ -1,0 +1,81 @@
+<body>
+  <div class="container">
+    <div class="file-upload">
+      <h2>Select Folder or File</h2>
+      <div class="inputfield-submit">
+        <div class="file-input-container">
+          <input type="text" readonly id="selectedFileName" class="custom-file-input">
+          <input type="file" #fileInput id="fileInput" name="files" readonly (change)="onFileChange($event,'file')"
+            class="custom-file-input d-none">
+          <input type="file" #folderInput id="folderInput" name="folder" webkitdirectory readonly
+            (change)="onFileChange($event,'folder')" class="custom-file-input d-none">
+        </div>
+        <div class="button-container cont-1">
+          <button (click)="selectFile('file')" class="custom-file-button">Browse File</button>
+          <button (click)="selectFile('folder')" class="custom-file-button">Browse Folder</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="question">
+      <h2>Enter Question</h2>
+      <div class="inputfield-submit">
+        <div class="file-input-container">
+          <textarea class="txt-input" (keyup)="keyupInputQuestion($event)" id="question" [(ngModel)]="question"
+            placeholder="Enter your question"></textarea>
+        </div>
+        <div class="button-container ">
+          <button *ngIf="submittedQuestion=='' || checkFileSelection==false" style="opacity: 0.5; /* You can adjust the opacity value to make it look more or less disabled */
+          pointer-events: none;" class="custom-file-button submitbtn" (click)="submitQuestion()">Submit</button>
+          <button *ngIf="submittedQuestion!='' && checkFileSelection==true" class="custom-file-button submitbtn" (click)="submitQuestion()">Submit</button>
+          <button *ngIf="submitStatus==true" class="custom-file-button submitbtn" (click)="newQuestion()">New Question</button>
+          <button *ngIf="submitStatus==false" style="opacity: 0.5; /* You can adjust the opacity value to make it look more or less disabled */
+          pointer-events: none;" class="custom-file-button submitbtn" (click)="submitQuestion()">New Question</button>
+        </div>
+      </div>
+    </div>
+    <div class="result">
+      <h2>Response <div *ngIf="loading" class="spinner-border text-primary" role="status"></div></h2>
+      <div class="inputfield-submit">
+        <!-- <div *ngIf="loading" class="spinner-border text-primary" role="status">
+        </div> -->
+        <!-- <div class="loader-container" *ngIf="loading">
+          <div class="spinner-border text-primary" role="status"></div>
+        </div> -->
+        <div class="file-input-container">
+          <textarea class="result-text" [(ngModel)]="responseData" readonly></textarea>
+        </div>
+        <div class="button-container">
+
+          <!-- <button style="opacity: 0.5; /* You can adjust the opacity value to make it look more or less disabled */
+            pointer-events: none;" class="custom-file-button"
+            *ngIf="submittedQuestion=='' || checkFileSelection==false || isResponse==false"
+            (click)="copyText()">Copy</button>
+          <button style="opacity: 0.5; /* You can adjust the opacity value to make it look more or less disabled */
+            pointer-events: none;" class="custom-file-button"
+            *ngIf="submittedQuestion=='' && checkFileSelection==false" (click)="resetForm()">New Search</button>
+          <button style="opacity: 0.5; /* You can adjust the opacity value to make it look more or less disabled */
+            pointer-events: none;" class="custom-file-button"
+            *ngIf="submittedQuestion=='' || checkFileSelection==false || isResponse==false"
+            (click)="saveResponse()">Save</button> -->
+            <button class="custom-file-button" *ngIf="submittedQuestion!='' && checkFileSelection==true && isResponse==true"
+            (click)="copyText()">Copy</button>
+            <button style="opacity: 0.5; /* You can adjust the opacity value to make it look more or less disabled */
+            pointer-events: none;" class="custom-file-button" *ngIf="submittedQuestion=='' || checkFileSelection==false || isResponse==false"
+            (click)="copyText()">Copy</button>
+          <button class="custom-file-button" *ngIf="submittedQuestion!='' || checkFileSelection==true"
+            (click)="resetForm()">New Search</button>
+            <button style="opacity: 0.5; /* You can adjust the opacity value to make it look more or less disabled */
+            pointer-events: none;" class="custom-file-button" *ngIf="submittedQuestion=='' && checkFileSelection==false"
+            (click)="resetForm()">New Search</button>
+          <button class="custom-file-button" *ngIf="submittedQuestion!='' && checkFileSelection==true && isResponse==true"
+            (click)="saveResponse()">Save</button>
+          <button style="opacity: 0.5; /* You can adjust the opacity value to make it look more or less disabled */
+            pointer-events: none;" class="custom-file-button" *ngIf="submittedQuestion=='' || checkFileSelection==false || isResponse==false"
+            (click)="saveResponse()">Save</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
